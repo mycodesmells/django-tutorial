@@ -1,0 +1,15 @@
+.task-item {
+	display: flex;
+}
+
+.new-task-item form {
+	width: 100%;
+}
+
+.new-task-item .save-button {
+	color: black;
+}
+
+.actions-column {
+	text-align: center;
+}
