@@ -2,3 +2,4 @@
 project.sublime-project
 project.sublime-workspace
 venv/
+*.pyc

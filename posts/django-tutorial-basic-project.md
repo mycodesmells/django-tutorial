@@ -1,6 +1,6 @@
 # Django Tutorial - The Most Basic Project
 
-Django tutorial: Part 1
+Django tutorial: [Part 1](http://mycodesmells.com/post/django-tutorial-virtualenv/)
 
 It's time to make the first step in actually developing our first project in Django. In this post we will create a simple module which will be responsible for managing our To Do list. At the end of this piece we will have a semi-pretty which will list our tasks, and we'll get to know a little bit about django's administration panel. Let's dive in!
 
@@ -32,6 +32,8 @@ Creating a simple application in django is almost extremely easy. The most power
 	Quit the server with CONTROL-C.
 
 First command initializes your database (creates tables, inserts initial required data), second is theoretically optional (but is necessary for administration panel access) and allows you to create your super user (administator with all privileges). Finally, the last one starts a server and allows you to access it via your web browser.
+
+<img src="https://raw.githubusercontent.com/mycodesmells/django-tutorial/master/posts/images/running-empty-project.png"/>
 
 ### Creating a model
 
@@ -141,10 +143,17 @@ Next, we need to inform django, which routes should be directed to our view func
 
 After doing that we actually have our app ready to run. To make it look better, we'll use some Bootstrap features, so that appropriate CSS files need to be references in our HTML template. After that we can run our application and see the results:
 
+<img src="https://raw.githubusercontent.com/mycodesmells/django-tutorial/master/posts/images/running-empty-list.png"/>
 	
 This is not quite what we want to see. But we can enter our administration panel (running on http://localhost:8000/admin), click on Task link and add some items. Let's add (_Add task_ button on the right) one task marked as done, and one yet to be finished:
 
+<img src="https://raw.githubusercontent.com/mycodesmells/django-tutorial/master/posts/images/admin-panel-entity-type-list.png" />
+
+<img src="https://raw.githubusercontent.com/mycodesmells/django-tutorial/master/posts/images/admin-panel-adding-item.png"/>
+
 Now when we refresh the root page, we can see the list with two cool items!
+
+<img src="https://raw.githubusercontent.com/mycodesmells/django-tutorial/master/posts/images/running-full-list.png"/>
 
 ### To do
 
