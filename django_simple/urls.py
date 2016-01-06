@@ -1,13 +1,13 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from django_simple.todo import views as todo_views
+from django_simple.authentication import urls as authentication_urls 
+from django_simple.todo import urls as todo_urls 
 
 
 urlpatterns = [
-	url(r'^$', todo_views.index),
-	url(r'^add$', todo_views.add),
-	url(r'^delete/(?P<task_id>\d+)$', todo_views.delete),
+	url(r'^', include(todo_urls)),
+	url(r'^', include(authentication_urls)),
 
     url(r'^admin/', include(admin.site.urls)),
 ]

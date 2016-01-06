@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import TaskForm
 from .models import Task
 
 
+@login_required
 def index(request):
 	tasks = Task.objects.all()
 
@@ -11,6 +13,7 @@ def index(request):
 			'tasks': tasks
 		})
 
+@login_required
 def add(request):
 	if request.method == 'POST':
 		form = TaskForm(request.POST)
@@ -23,6 +26,7 @@ def add(request):
 
 	return redirect('/')
 
+@login_required
 def delete(request, task_id):
 	Task.objects.get(id=task_id).delete()
 	return redirect('/')
