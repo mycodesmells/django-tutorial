@@ -4,7 +4,7 @@
 	<ul class="list-group">
 
 		<li class="list-group-item new-task-item task-item">
-		  	<form action="/add" method="post">
+		  	<form action="/add/" method="post">
 		  		{% csrf_token %}
 				<div class="col-xs-1 form-group">
 				</div>
@@ -31,7 +31,7 @@
 			  	</div>
 				<div class="col-xs-10">{{ task.name }}</div>
 			  	<div class="col-xs-1 actions-column">
-			  		<a href="/delete/{{task.id}}"><span class="fa fa-times"></span></a>
+			  		<a href="/delete/{{task.id}}/"><span class="fa fa-times"></span></a>
 			  	</div>
 			</li>		
 		{% endfor %}		
