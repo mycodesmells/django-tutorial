@@ -11,9 +11,9 @@ class Task(models.Model):
 
     def __str__(self):
         if self.done:
-            return "%s (done)" % self.name
+            return "[✔] %s" % self.name
         else:
-            return self.name
+            return "[✖] %s" % self.name
 
     def save(self, *args, **kwargs):
         logger.warning("Task model change (name=%s)" % self.name)
