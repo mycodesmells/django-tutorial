@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.forms import model_to_dict
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from .forms import TaskForm
@@ -36,11 +37,14 @@ def delete(request, task_id):
 	return redirect('/')
 
 class TasksApiView(View):
+
+	@method_decorator(login_required)
 	def get(self, request, *args, **kwargs):
 		tasks = Task.objects.all()
 		json = [model_to_dict(t) for t in tasks]
 		return JsonResponse(json, safe=False)
 
+	@method_decorator(login_required)
 	@csrf_exempt
 	def post(self, request, *args, **kwargs):
 		print(request.POST)
@@ -50,6 +54,7 @@ class TasksApiView(View):
 		task.save()
 		return HttpResponse(task.id, status=201)
 
+@login_required
 def delete_task(request, task_id):
 	Task.objects.get(id=task_id).delete()
 	return HttpResponse(status = 204)
