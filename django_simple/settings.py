@@ -27,22 +27,33 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SHARED_APPS = (
+    'tenant_schemas',
+    'tenants',
+    'django_simple.authentication',
 
-# Application definition
+    'django.contrib.contenttypes',
 
-INSTALLED_APPS = (
+    # everything below here is optional
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'django_simple.authentication',
-    'django_simple.todo'
 )
 
+TENANT_APPS = (
+    # The following Django contrib apps must be in TENANT_APPS
+    'django.contrib.contenttypes',
+
+    # your tenant-specific apps
+    'django_simple.todo',
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
 MIDDLEWARE_CLASSES = (
+    'tenant_schemas.middleware.TenantMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,6 +73,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.core.context_processors.request',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -79,10 +91,17 @@ WSGI_APPLICATION = 'django_simple.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'tenant_schemas.postgresql_backend',
+        'NAME': 'todo',
+        'USER': 'todo',
+        'PASSWORD': 'todo',
+        'HOST': '172.17.0.2',
+        'PORT': '5432'
     }
 }
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
 
 
 # Internationalization
@@ -110,3 +129,5 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = '/login/'
+
+TENANT_MODEL = "tenants.Tenant"
