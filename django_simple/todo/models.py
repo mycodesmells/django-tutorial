@@ -1,11 +1,20 @@
+import logging
+
 from django.db import models
 
-class Task(models.Model):
-	name = models.TextField(max_length=100)
-	done = models.BooleanField(default=False)
+logger = logging.getLogger(__name__)
 
-	def __str__(self):
-		if self.done:
-			return "%s (done)" % self.name
-		else:
-			return self.name
+
+class Task(models.Model):
+    name = models.TextField(max_length=100)
+    done = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.done:
+            return "%s (done)" % self.name
+        else:
+            return self.name
+
+    def save(self, *args, **kwargs):
+        logger.warning("Task model change (name=%s)" % self.name)
+        super(Task, self).save(*args, **kwargs)
